@@ -132,3 +132,18 @@ header, .logo, .side-bar {
     opacity: 0;
   }
 }
+
+.ng-map-info-window > :first-child{
+    width:calc(100vw - 210px);
+    max-width:100vw !important;  /*overriding google maps css */
+    height:85vh;
+    max-height:85vh !important;
+	z-index:1;
+}
+
+@media (max-width:767px) {
+    .ng-map-info-window > :first-child{
+        width:calc(100vw - 10px);
+        max-width:100vw !important;  /*overriding google maps css */
+    }
+}
