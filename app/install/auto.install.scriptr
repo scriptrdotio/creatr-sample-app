@@ -1,4 +1,4 @@
-var responseObject = {};
+var responseObject = {"failure": [], "success": []};
 var channels = require("channel");
 var devices = require("device");
 var users = require("user");
@@ -11,24 +11,29 @@ var params = {
     "apsdb.name": subdomain
 }
 
-var step = apsdb.callApi("SaveSubdomain", params, null); 
-if(step.metadata.status == "failure" && step.metadata.errorCode != "MAX_SUBDOMAINS_EXCEEDED") {
-	responseObject["subdomainCreation_"+subdomain] = JSON.stringify("Failed to generate a subdomain for your account under scriptrapps.io on which your APIs will be exposed. A subdomain is needed for the application to call your public APIs without passing the anonymous token. You can always set your account subdomain from the IDE \"Account\" tab.");
-} else if(step.metadata.status == "success"){
-    responseObject["subdomainCreation_"+subdomain] = JSON.stringify("A subdomain was generated for your account under scriptrapps.io on which your APIs will be exposed. This will also allow users to call your public APIs without passing the anonymous token. You can always change your account subdomain from the IDE \"Account\" tab.");
+var saveSubdomain = apsdb.callApi("SaveSubdomain", params, null); 
+if(saveSubdomain.metadata.status == "failure" && saveSubdomain.metadata.errorCode != "MAX_SUBDOMAINS_EXCEEDED") {
+	responseObject.failure.push(JSON.stringify("Failed to generate a subdomain for your account under scriptrapps.io on which your APIs will be exposed. A subdomain is needed for the application to call your public APIs without passing the anonymous token. You can always set your account subdomain from the IDE \"Account\" tab."));
+} else if(saveSubdomain.metadata.status == "success"){
+     responseObject.success.push(JSON.stringify("A subdomain was generated for your account under scriptrapps.io on which your APIs will be exposed. This will also allow users to call your public APIs without passing the anonymous token. You can always change your account subdomain from the IDE \"Account\" tab."));
 }
 var configurationSettings = {"apsdb.optionalBindReferrer": "true"};
-responseObject["savingConfiguration"] = apsdb.callApi("SaveConfiguration", configurationSettings, null)
+var saveConfiguration = apsdb.callApi("SaveConfiguration", configurationSettings, null)
+if(saveConfiguration.metadata.status == "failure"){
+   responseObject.failure.push("Setup account user tokens not bound to the referrer failed."+ saveConfiguration.metadata.errorDetail);
+} else {
+    responseObject.success.push("Setup account user tokens not bound to the referrer successfull.");
+}
 
 /** Create a group editor that allows its users to access the scriptr ide plugins, ex: decision table **/
 var editorGroup = "editor";
-var step2 = groups.create(editorGroup);
-responseObject["groupCreation_"+editorGroup] = JSON.stringify(step2);
+var saveEditorGroup = groups.create(editorGroup);
+if(saveEditorGroup.metadata.status == "failure"){
+    responseObject.failure.push("Create a group editor which allows its users to access the scriptr ide plugins when logged in to the app."+ saveEditorGroup.metadata.errorDetail);
+} else {
+     responseObject.success.push("Create a group editor which allows its users to access the scriptr ide plugins when logged in to the app failed.");
+}
 
-/** Create a group admin that allows its users to access admin stuff **/
-var adminGroup = "admin";
-var step3 = groups.create(adminGroup);
-responseObject["groupCreation_"+adminGroup] = JSON.stringify(step3);
 
 /** Create Anonymous publish channel used to receive requests from browser **/
 var channelsList =  ["requestChannel", "responseChannel"];
@@ -36,11 +41,16 @@ var options = {
   "subscribeACL": "anonymous",
   "publishACL": "anonymous"
 }
-
+var saveChannel = null;
 channelsList.forEach(function(channel) {
-   var step5 = channels.create(channel, options);
-   responseObject["channelCreation_"+channel] = JSON.stringify(step5)
+   saveChannel = channels.create(channel, options);
 });
+
+if(saveChannel.metadata.status == "failure"){
+       responseObject.failure.push("Create application needed channels error. "+saveChannel.metadata.errorDetail);
+    } else {
+         responseObject.success.push("Create application needed channels error.");
+    }
 
 //create users to be used to login to the app
 var usersList = [ //Device used to login to iot app
@@ -48,20 +58,18 @@ var usersList = [ //Device used to login to iot app
         "id":"admin",
         "password" : "admin",
         "name" : "admin",
-        "groups": ["editor","admin"]
+        "groups": ["editor"]
     }
 ];
 
 usersList.forEach(function(params) {
-  var step8= users.save(params);
-  //var step9=users.generateToken(params.id, {"password": params.password, "expiry": 1800, "lifeTime": 7200, "bindToReferrer": "false"});
-  responseObject["userCreation_"+params.id] = JSON.stringify(step8);
-  //responseObject["userTokenCreation_"+params.id] = JSON.stringify(step9);
-
+  var saveUser= users.save(params);
+    
+    if(saveUser.metadata.status == "failure"){
+       responseObject.failure.push("Creating user/password to login to sample application. "+saveUser.metadata.errorDetail);
+    } else {
+       responseObject.success.push("Create admin/admin user to login to sample application.");
+    }
 });
-
-//Set a scheduler to cleanup events
-var scheduleCleanup = schedule("app/cleanup/devicesEvents", "5 * * * ?");
-responseObject["scheduleCleanup"] = JSON.stringify(scheduleCleanup);
 
 return responseObject;
