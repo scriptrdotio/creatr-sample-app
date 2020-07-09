@@ -21,27 +21,22 @@ log.info("[app/api/subscription/subscriber] received the following payload \n" +
 var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
 var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 
-_.some(config.availableDeviceTypes, function(entry) {
-    deviceConfig = entry;
-    var deviceMapper = require(entry.mapper);
-    data = deviceMapper.mapIt(inputData); 
-    data = _.omit(data, function(value, key, object) {
-        return _.isUndefined(value);
-    });
-    return (_.isEmpty(data) == false);
+// get transformation script for this device ID
+deviceId 					= request.user.id;
+var thisdevice  			= devices.get(deviceId);//.result.transformationScript;
+var transformationScript	= thisdevice.result.transformationScript;
+
+log.info("thisdevice: "+thisdevice+" transformationScript: "+transformationScript);
+
+var deviceMapper 			= require(transformationScript);
+data 						= deviceMapper.mapIt(inputData); 
+
+data = _.omit(data, function(value, key, object) {
+     return _.isUndefined(value);
 });
-if(data.id) {//If it is in payload
-    deviceId = data.id; 
-} else if(request.user.id != config.dmpDeviceBroker) {//If it is NOT in payload, the device is identified by the call credentials
-    deviceId = request.user.id;
-} else {
-    log.info("[app/api/subscription/subscriber] Unable to identify device. Neither id in payload nor a valid device token.\n" + JSON.stringify(data));
-    return;
-}
 
-
-
-log.info("[app/api/subscription/subscriber] transform the payload into \n" + JSON.stringify(data));
+log.info(" device token is :"+deviceId+" from : " + JSON.stringify(data));
+log.info(" device transformationScript is :"+transformationScript);
 
 if(!_.isEmpty(data)) { 
     try {
@@ -62,6 +57,7 @@ if(!_.isEmpty(data)) {
         var entry = {};
         entry = deviceManager.buildDeviceEventDocument(deviceDefinition, data);
         log.info("[app/api/subscription/subscriber] Processing Event Entry: " + JSON.stringify(entry))	
+
         return processEntry(entry);
     }catch(exception) {
         log.info("Exception: "+JSON.stringify(exception))
