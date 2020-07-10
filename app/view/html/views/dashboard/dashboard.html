@@ -185,6 +185,8 @@
                                                                                      labels='["Humidity", "Temperature"]'
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
+                                          											 api="app/api/getDeviceHistory"
+                                          											 api-params="vm.params"
                                                                                      msg-tag='{{vm.tag}}'
                                                                                      data="vm.historicalData"
                                                                                      grid-text-family='Source Sans Pro'
@@ -229,7 +231,8 @@
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'
+                                                                                     api="app/api/getDeviceHistory"
+                                          											 api-params='vm.params'
                                                                                      data='vm.historicalData'
                                                                                      grid-text-family='Source Sans Pro'
                                                                                      line-width='3'
