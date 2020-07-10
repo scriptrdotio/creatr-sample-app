@@ -9,6 +9,7 @@ var _ = require("modules/underscore/underscore.js")._;
 var deviceManager = require("app/entities/deviceManager");
 var deviceEvaluator = require("app/entities/deviceEvaluator");
 var devicePublisher = require("app/entities/devicePublisher");
+var creatrConfig 	= "app/config/creatr/config" 
 
 var config = require("app/config/config");
 
@@ -29,19 +30,21 @@ var transformationScript	= thisdevice.result.transformationScript;
 log.info("thisdevice: "+thisdevice+" transformationScript: "+transformationScript);
 
 var deviceMapper 			= require(transformationScript);
+var deviceConfig			= require(creatrConfig)
 data 						= deviceMapper.mapIt(inputData); 
 
 data = _.omit(data, function(value, key, object) {
      return _.isUndefined(value);
 });
 
-log.info(" device token is :"+deviceId+" from : " + JSON.stringify(data));
-log.info(" device transformationScript is :"+transformationScript);
+//log.info(" device token is :"+deviceId+" from : " + JSON.stringify(data));
+//log.info(" device transformationScript is :"+transformationScript);
 
 if(!_.isEmpty(data)) { 
     try {
         var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
         log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
+        log.info("Data to up: "+JSON.stringify(deviceConfig.deviceDataTopUp))
         if(deviceDefinition == null) {
             var deviceDefinition = {};
             
