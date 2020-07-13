@@ -1,18 +1,18 @@
 var config = {
-   redirect: "/UIComponents/dashboardBuilder/index.html",
-   loginPage: "/login/view/login.html"
+   redirect: "/smartkitchen/app/view/html/index.unpackaged.html",
+   loginPage: "/smartkitchen/login/view/login.html"
 }
 
 var login = {
    expiry:6,
-   loginApi: "/login/api/login",
-   validateTokenApi: "/login/api/validateToken",
+   loginApi: "/smartkitchen/login/api/login",
+   validateTokenApi: "/smartkitchen/login/api/validateToken",
 };
 
 var forgotPassword = {
-    forgotPasswordApi: "/login/api/forgotPassword",
+    forgotPasswordApi: "/smartkitchen/login/api/forgotPassword",
 }
 
 var resetPassword = {
-    resetPasswordApi: "/login/api/resetPassword",
+    resetPasswordApi: "/smartkitchen/login/api/resetPassword",
 }

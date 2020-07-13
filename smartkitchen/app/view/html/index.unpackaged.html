@@ -53,13 +53,8 @@
     <link rel="stylesheet" href="/UIComponents/dashboardBuilder/css/media.css">
     <link name="light" rel="stylesheet" href="/UIComponents/dashboardBuilder/css/light.css"> 
     
-    
-   <%#style%>
-       <link rel="stylesheet" href="/<%theme%>/view/css/styles.css"> 
-    <%/style%>
-    <%^style%>
-    	<link rel="stylesheet" href="/app/view/css/styles.css"> 
-    <%/style%>
+    <link rel="stylesheet" href="../css/styles.css"> 
+   
       
     <!-- JQUERY Material  To use jQuery, simply ensure it is loaded before the angular.js file. -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -81,7 +76,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.21/moment-timezone-with-data.min.js"></script>
 
     
-    <script id="mapsScript" src="//maps.google.com/maps/api/js?key=<%mapKey%>&libraries=drawing,visualization"></script>
+    <script id="mapsScript" src="//maps.google.com/maps/api/js?key=AIzaSyBcPYghFh_BXz4dDz-TXTHbU2iV3Wbf57I&libraries=drawing,visualization"></script>
   
     <!-- NG material -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
@@ -195,19 +190,19 @@
         
         
     <!-- login -->
-    <script src="/login/view/javascript/authorization.js"></script>
-    <script src="/login/view/javascript/config.js"></script>
+    <script src="../../../login/view/javascript/authorization.js"></script>
+    <script src="../../../login/view/javascript/config.js"></script>
  
-    <script src="/app/view/javascript/config.js"></script>
-    <script src="/app/view/javascript/layout.js"></script>
-    <script src="/app/view/javascript/module.js"></script>
-    <script src="/<%theme%>/view/javascript/constants.js"></script>   
-    <script src="/app/view/javascript/controller.js"></script>
+    <script src="../javascript/config.js"></script>
+    <script src="../javascript/layout.js"></script>
+    <script src="../javascript/module.js"></script>
+    <script src="../javascript/constants.js"></script>   
+    <script src="../javascript/controller.js"></script>
     
     <script type="text/javascript"> 
         
       var redirect = {
-           login: "/<%theme%>/login",
+           login: "../../../login/view/login.html",
       };
       var authorization  = $.scriptr.authorization(
           {
