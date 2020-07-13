@@ -17,12 +17,12 @@ var headerItems = {
 
 var routingItems = {
   "params": [
-    {"route": "map", "template": "/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
-    {"route": "map/deviceId/:deviceId*", "template": "/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
-    {"route": "dashboard/deviceId/:deviceId*", "template": "/app/view/html/views/dashboard/dashboard.html","controller": "dashboardCtrl as vm"},
-    {"route": "alerts/deviceId/:deviceId*", "template": "/app/view/html/views/logs/alerts.html","controller": "alertsCtrl as vm"},
-    {"route": "notifications", "template": "/app/view/html/views/notifications/notifications.html", controller: "notificationCtrl as vm"},
-    {"route": "rules", "template": "/app/view/html/views/genericRules/genericAllRule.html", controller: "rulesCtrl as vm"},    
+    {"route": "map", "template": "/smartcontainer/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
+    {"route": "map/deviceId/:deviceId*", "template": "/smartcontainer/app/view/html/views/map/map.html", "controller": "mapCtrl as vm"},
+    {"route": "dashboard/deviceId/:deviceId*", "template": "/smartcontainer/app/view/html/views/dashboard/dashboard.html","controller": "dashboardCtrl as vm"},
+    {"route": "alerts/deviceId/:deviceId*", "template": "/smartcontainer/app/view/html/views/logs/alerts.html","controller": "alertsCtrl as vm"},
+    {"route": "notifications", "template": "/smartcontainer/app/view/html/views/notifications/notifications.html", controller: "notificationCtrl as vm"},
+    {"route": "rules", "template": "/smartcontainer/app/view/html/views/genericRules/genericAllRule.html", controller: "rulesCtrl as vm"},    
     {"route": "logout", "template": "/smartcontainer/login/view/logout.html"},  
   ]
 };
