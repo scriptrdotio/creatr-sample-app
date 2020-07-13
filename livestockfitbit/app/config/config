@@ -1,11 +1,25 @@
 var expiry = 60;
 
 
-var dmpDeviceBroker = "myDmpBroker";
+var applicationGroup = "application";
+var deviceGroup = "device";
 
 var defaultApp = "livestockfitbit";
 
-var businessRule = {"script": "smartfarming/app/entities/rules/decisionTable", "plugin": "SimpleDecisionTable"};
+var businessRule = {"script": "livestockfitbit/app/entities/rules/decisionTable", "plugin": "SimpleDecisionTable"};
+
+var deviceDataTopUp =  {
+    "lat": 45.5307159, 
+    "long": -73.8373892,
+    "address": "Little Feet Meadow",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Ranch",
+    "locationSection": "Neck Collar",
+    "physicalEnvironment": "Cow",
+    "sensor": "B-L072Z-LRWAN1",
+    "source": "simulator"
+}
 
 var email = {
     "TO": "",

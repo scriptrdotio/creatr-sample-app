@@ -1,13 +1,25 @@
 var expiry = 60;
 
 
-var dmpDeviceBroker = "myDmpBroker";
+var applicationGroup = "application";
+var deviceGroup = "device";
 
 var defaultApp = "smartkitchen";
 
-var businessRuleScript = "app/entities/rules/decisionTable";
+var businessRule = {"script": "smartkitchen/app/entities/rules/decisionTable", "plugin": "SimpleDecisionTable"};
 
-var businessRule = {"script": "smartfarming/app/entities/rules/decisionTable", "plugin": "SimpleDecisionTable"};
+var deviceDataTopUp =  {
+    "lat": 45.5602805, 
+    "long": -73.8521324,
+    "address": "Freedom Tower",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Industrial",
+    "locationSection": "kitchen",
+    "physicalEnvironment": "Fridge",
+    "sensor": "nebula-2.0",
+    "source": "simulator"
+}
 
 var email = {
     "TO": "",
