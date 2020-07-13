@@ -1,7 +1,7 @@
-<div ng-include="'/app/view/html/views/search/searchDevices.html'"></div>
+<div ng-include="'views/search/searchDevices.html'"></div>
 <section class="page-inner dashboardTheme" ng-controller="dashboardCtrl as vm" ng-init="vm.init();">
     <div class="col-xs-12">
-        <div ng-include="'/app/view/html/views/dashboard/summary.html'"></div>
+        <div ng-include="'views/dashboard/summary.html'"></div>
         <div ng-if="vm.deviceKey == null" style="
                                                  height: 90px;
                                                  line-height: 90px;
@@ -185,7 +185,7 @@
                                                                                      labels='["Humidity", "Temperature"]'
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
-                                          											 api="app/api/getDeviceHistory"
+                                          											 api="{{vm.apis.getDeviceHistory}}"
                                           											 api-params="vm.params"
                                                                                      msg-tag='{{vm.tag}}'
                                                                                      data="vm.historicalData"
@@ -231,7 +231,7 @@
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
-                                                                                     api="app/api/getDeviceHistory"
+                                                                                     api="{{vm.apis.getDeviceHistory}}"
                                           											 api-params='vm.params'
                                                                                      data='vm.historicalData'
                                                                                      grid-text-family='Source Sans Pro'

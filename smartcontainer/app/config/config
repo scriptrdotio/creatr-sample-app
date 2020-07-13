@@ -5,13 +5,7 @@ var dmpDeviceBroker = "myDmpBroker";
 
 var defaultApp = "smartcontainer";
 
-var businessRuleScript = "app/entities/rules/decisionTable";
-
-var availableDeviceTypes = [
-    require("app/config/nebula-2.0/config"),
-    require("app/config/B-L475E-IOT01A/config"),
-    require("app/config/B-L072Z-LRWAN1/config")
-]
+var businessRule = {"script": "smartfarming/app/entities/rules/decisionTable", "plugin": "SimpleDecisionTable"};
 
 var email = {
     "TO": "",

@@ -4,6 +4,7 @@ myApp.controller('mapCtrl', function($location, constants, $routeParams) {
 
     vm.sources = constants.sources;
     vm.icons = constants.infoWindows.icons;
+    vm.apis = constants.apis;
     
     vm.go = function(path) {
         $location.path(path)
@@ -40,10 +41,11 @@ myApp.controller('menuCtrl', function(headerItemsJson, menuItemsJson) {
      
 });
 
-myApp.controller('searchDevicesCtrl', function($location, headerItemsJson, menuItemsJson, $route, $routeParams) {
+myApp.controller('searchDevicesCtrl', function($location, headerItemsJson, menuItemsJson, $route, $routeParams, constants) {
     var vm = this;
-    
-   vm.init = function() {
+    vm.apis = constants.apis;
+   
+    vm.init = function() {
          if($routeParams && $routeParams.deviceId) {
              vm.selectedDevice = $routeParams.deviceId;
              vm.params = {"id":  vm.deviceKey }
@@ -86,11 +88,12 @@ myApp.controller('searchDevicesCtrl', function($location, headerItemsJson, menuI
      
 });
 
-myApp.controller('notificationCtrl', function(httpClient) {
+myApp.controller('notificationCtrl', function(httpClient, constants) {
     var vm = this;
-    vm.params = {} 
+    vm.params = {};
+    vm.apis = constants.apis;
     httpClient
-        .get("app/api/notifications/getSettings", null)
+        .get(vm.apis.getSettings, null)
         .then(
         function(data, response) {
             if(data && (data.emails || data.mobiles)){
@@ -126,12 +129,13 @@ myApp.controller('notificationCtrl', function(httpClient) {
 
 });
 
-myApp.controller('rulesCtrl', function(httpClient, $sce, $timeout,$routeParams) {
+myApp.controller('rulesCtrl', function(httpClient, $sce, $timeout,$routeParams, constants) {
     var vm = this;
     var params = {};
+    vm.apis = constants.apis;
     params["scriptName"] = $routeParams.id;
     httpClient
-        .get("app/api/rules/getGenericRuleEditor", null)
+        .get(vm.apis.getGenericRuleEditor, null)
         .then(
         function(data, response) {
              vm.rulesrc = $sce.trustAsResourceUrl(data);
@@ -149,13 +153,13 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
        var vm = this;
        vm.icons = constants.infoWindows.icons;
        vm.deviceKey = null;
-     
+       vm.apis = constants.apis;
        vm.init = function(){
             if($routeParams && $routeParams.deviceId) {
                 vm.deviceKey = $routeParams.deviceId;
                 vm.params = {"id":  vm.deviceKey }
                 vm.tag = "dashboard_" +  vm.deviceKey;
-                httpClient.get("app/api/getLatestDevice", vm.params).then(
+                httpClient.get(vm.apis.getLatestDevice, vm.params).then(
                 function(data, response) {
                     vm.summaryData(data)
                 },
@@ -186,6 +190,7 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
 myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $routeParams, constants) {
     var vm = this;
     vm.icons = constants.infoWindows.icons;
+    vm.apis = constants.apis;
     vm.deviceKey = null;
     vm.gridsterOptions = {
         pushing: true,
@@ -214,7 +219,7 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
             vm.params = {"id":  vm.deviceKey }
             vm.tag = "dashboard_" +  vm.deviceKey;
             wsClient.subscribe(vm.tag, vm.consumeData.bind(vm), $scope.$id);  
-            httpClient.get("app/api/getLatestDevice", vm.params).then(
+            httpClient.get(vm.apis.getLatestDevice, vm.params).then(
                 function(data, response) {
                     vm.consumeData(data)
                 },
@@ -222,7 +227,7 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
                     console.log('ERROR', error);
                 });
             
-            httpClient.get("app/api/getDeviceHistory", vm.params).then(
+            httpClient.get(vm.apis.getDeviceHistory, vm.params).then(
                 function(data, response) {
                     vm.consumeHistoricalData(data)
                 },

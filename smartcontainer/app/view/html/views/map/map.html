@@ -1,4 +1,4 @@
-<div ng-include="'/app/view/html/views/search/searchDevices.html'"></div>
+<div ng-include="'views/search/searchDevices.html'"></div>
 <div ng-init="vm.init();" ng-controller= "mapCtrl as vm"> <scriptr-map
              sources-info="vm.sources"
              clustered-view="true"
@@ -6,7 +6,7 @@
              path-stroke-opacity="0.5"
              path-stroke-weight="10"
              summary-icons="vm.icons"
-             api="app/api/getLatestDevices"
+             api="{{vm.apis.getLatestDevices}}"
              api-params="{}"
              msg-tag="map"
              geofence-manager="false"
@@ -18,6 +18,6 @@
              max-asset-points=1
              custom-default-info-window="infoWindowTemplate_generic"
 >
-    <info-window id="infoWindowTemplate_generic" template="/app/view/html/views/map/info_generic.html" max-width="600" max-height="700" style="position: relative"></info-window>
+    <info-window id="infoWindowTemplate_generic" template="views/map/info_generic.html" max-width="600" max-height="700" style="position: relative"></info-window>
 </scriptr-map>
 </div>
