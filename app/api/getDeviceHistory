@@ -1,4 +1,4 @@
-var deviceManager = require("app/entities/deviceManager")
+var deviceManager = require("../entities/deviceManager")
 
 var query = {};
 if(request.body != null){

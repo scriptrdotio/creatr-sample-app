@@ -1,4 +1,4 @@
-var _templates = require("app/config/config").templates;
+var _templates = require("../../config/config").templates;
 
 function getTemplate(type, event){
   if(!_templates[type][event])

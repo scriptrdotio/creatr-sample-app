@@ -1,5 +1,5 @@
 var device = require("device");
-var config = require("app/config/config");
+var config = require("../../config/config");
 
 var getDevice = device.get(request.user.id);
 

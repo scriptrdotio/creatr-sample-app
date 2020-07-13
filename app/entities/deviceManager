@@ -1,6 +1,6 @@
 var document = require("document");
 var device = require("device");
-var utils = require("app/entities/utils");
+var utils = require("./utils");
 
 var _= require("modules/underscore/underscore.js")._;
 

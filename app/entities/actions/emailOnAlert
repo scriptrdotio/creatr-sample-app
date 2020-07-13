@@ -1,6 +1,6 @@
-var notificationManager = require("app/entities/notificationManager");
-var templates = require("app/entities/actions/templates");
-var config = require("app/config/config");
+var notificationManager = require("../notificationManager");
+var templates = require("./templates");
+var config = require("../../config/config");
 var _ = require("modules/underscore/underscore.js")._;
 
 var log = require("log");

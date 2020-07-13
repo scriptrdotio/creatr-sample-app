@@ -1,5 +1,5 @@
 var document = require("document"); 
-var deviceManager = require("app/entities/deviceManager");
+var deviceManager = require("../entities/deviceManager");
 
 var devices = getAllDevicesDefinition();
 var documentsToDelete = []
