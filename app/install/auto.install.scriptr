@@ -5,6 +5,59 @@ var users = require("user");
 var groups = require("group");
 
 
+
+
+var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
+var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
+
+deviceId = inputData["deviceId"];
+isPushPull = inputData["isPushPull"];
+
+
+var saveApplicationGroup = groups.create("application");
+if(saveApplicationGroup.metadata.status == "failure" && saveApplicationGroup.metadata.errorCode != "DUPLICATE_GROUP_NAME"){
+    responseObject.failure.push("Failure to create a group \"application\", which is used to identify authenticated applications sending on behalf of devices data to scriptr");
+} else {
+     responseObject.success.push("Group \"application\", which is used to identify authenticated applications sending on behalf of devices data to scriptr is available. "+ saveApplicationGroup.metadata.errorDetail);
+}
+
+
+var saveDeviceGroup = groups.create("device");
+if(saveDeviceGroup.metadata.status == "failure" && saveDeviceGroup.metadata.errorCode != "DUPLICATE_GROUP_NAME"){
+    responseObject.failure.push("Failure to create a group \"device\"sending data directly to scriptr is available. "+saveDeviceGroup.metadata.errorDetail);
+} else {
+     responseObject.success.push("Group \"device\" which allows to identify an authenticated device is sending data directly to scriptr is available. "+ saveDeviceGroup.metadata.errorDetail);
+}
+
+
+if(deviceId && isPushPull && isPushPull == "push") {
+    var updateDeviceGroups = devices.save({"id": deviceId, "groups":["device"]});
+    if(updateDeviceGroups.metadata.status == "failure" ) {
+        responseObject.failure.push("Failure to add device "+ deviceId + " to goup \"device\"");
+    } else {
+        responseObject.success.push("Success adding device "+ deviceId + " to goup \"device\"");
+    }
+} else if(deviceId && isPushPull && isPushPull == "pull"){
+    //"groups": {"append":["device"], "delete":["application"]}
+    var updateDeviceGroups = devices.save({"id": deviceId, "groups": ["application"]});
+     if(updateDeviceGroups.metadata.status == "failure" ) {
+        responseObject.failure.push("Failure to add device "+ deviceId + " to goup \"application\"");
+    } else {
+        responseObject.success.push("Success adding device "+ deviceId + " to goup \"application\"");
+    }
+}
+
+
+
+/** Create a group editor that allows its users to access the scriptr ide plugins, ex: decision table **/
+var saveEditorGroup = groups.create("editor");
+if(saveEditorGroup.metadata.status == "failure"  && saveEditorGroup.metadata.errorCode != "DUPLICATE_GROUP_NAME"){
+    responseObject.failure.push("Create a group editor which allows its users to access the scriptr ide plugins when logged in to the app failed.");
+} else {
+     responseObject.success.push("The group editor which allows its users to access the scriptr ide plugins when logged in to the app is available.");
+}
+
+
 /** Setup account default domain if none is set **/
 var subdomain = request.account.accountKey;
 var params = {
@@ -25,16 +78,6 @@ if(saveConfiguration.metadata.status == "failure"){
     responseObject.success.push("Setup account user tokens not bound to the referrer successfull.");
 }
 
-/** Create a group editor that allows its users to access the scriptr ide plugins, ex: decision table **/
-var editorGroup = "editor";
-var saveEditorGroup = groups.create(editorGroup);
-if(saveEditorGroup.metadata.status == "failure"){
-    responseObject.failure.push("Create a group editor which allows its users to access the scriptr ide plugins when logged in to the app."+ saveEditorGroup.metadata.errorDetail);
-} else {
-     responseObject.success.push("Create a group editor which allows its users to access the scriptr ide plugins when logged in to the app failed.");
-}
-
-
 /** Create Anonymous publish channel used to receive requests from browser **/
 var channelsList =  ["requestChannel", "responseChannel"];
 var options = {
@@ -46,10 +89,10 @@ channelsList.forEach(function(channel) {
    saveChannel = channels.create(channel, options);
 });
 
-if(saveChannel.metadata.status == "failure"){
+if(saveChannel.metadata.status == "failure" && saveChannel.metadata.errorCode !== "DUPLICATE_CHANNEL"){
        responseObject.failure.push("Create application needed channels error. "+saveChannel.metadata.errorDetail);
     } else {
-         responseObject.success.push("Create application needed channels error.");
+         responseObject.success.push("Application needed channels \"requestChannel\" & \"responseChannel\" are available.");
     }
 
 //create users to be used to login to the app
