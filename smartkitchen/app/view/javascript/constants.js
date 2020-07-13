@@ -61,13 +61,13 @@ myApp.constant("constants", {
   ],
     
   apis: {
-	  getDeviceHistory: "smartfarming/app/api/getDeviceHistory",
-	  getLatestDevice: "smartfarming/app/api/getLatestDevice",
-	  getGenericRuleEditor: "smartfarming/app/api/rules/getGenericRuleEditor",
-	  getDevices: "smartfarming/app/api/getDevices",
-	  updateSettings: "smartfarming/app/api/notifications/updateSettings",
-	  getSettings: "smartfarming/app/api/notifications/getSettings",
-	  getLatestDevices: "smartfarming/app/api/getLatestDevices",
-	  getDeviceAlerts: "smartfarming/app/api/getDeviceAlerts"
+	  getDeviceHistory: "smartkitchen/app/api/getDeviceHistory",
+	  getLatestDevice: "smartkitchen/app/api/getLatestDevice",
+	  getGenericRuleEditor: "smartkitchen/app/api/rules/getGenericRuleEditor",
+	  getDevices: "smartkitchen/app/api/getDevices",
+	  updateSettings: "smartkitchen/app/api/notifications/updateSettings",
+	  getSettings: "smartkitchen/app/api/notifications/getSettings",
+	  getLatestDevices: "smartkitchen/app/api/getLatestDevices",
+	  getDeviceAlerts: "smartkitchen/app/api/getDeviceAlerts"
   }
 })
