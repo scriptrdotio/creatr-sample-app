@@ -33,5 +33,16 @@ myApp.constant("constants", {
       {field: "temperature_unit", hide: true},
       {field: "humidity_unit", hide: true},
       {field: "pressure_unit", hide: true}
-  ]
+  ],
+    
+  apis: {
+	  getDeviceHistory: "smartfarming/app/api/getDeviceHistory",
+	  getLatestDevice: "smartfarming/app/api/getLatestDevice",
+	  getGenericRuleEditor: "smartfarming/app/api/rules/getGenericRuleEditor",
+	  getDevices: "smartfarming/app/api/getDevices",
+	  updateSettings: "smartfarming/app/api/notifications/updateSettings",
+	  getSettings: "smartfarming/app/api/notifications/getSettings",
+	  getLatestDevices: "smartfarming/app/api/getLatestDevices",
+	  getDeviceAlerts: "smartfarming/app/api/getDeviceAlerts"
+  }
 })

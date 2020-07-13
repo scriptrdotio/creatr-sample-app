@@ -1,8 +1,8 @@
-<div ng-include="'/app/view/html/views/search/searchDevices.html'"></div>
+<div ng-include="'views/search/searchDevices.html'"></div>
 <div ng-init="vm.init();">
-    <div ng-include="'/app/view/html/views/dashboard/summary.html'"></div>
+    <div ng-include="'views/dashboard/summary.html'"></div>
     <scriptr-grid ng-if="vm.colDef" columns-definition='vm.colDef' 
-               api='app/api/getDeviceAlerts'
+               api='{{vm.apis.getDeviceAlerts}}'
                api-params='vm.params'
                enable-delete-row='false'
                row-model-type='virtual'
