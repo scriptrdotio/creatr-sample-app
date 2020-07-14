@@ -23,6 +23,6 @@ var routingItems = {
     {"route": "alerts/deviceId/:deviceId*", "template": "views/logs/alerts.html","controller": "alertsCtrl as vm"},
     {"route": "notifications", "template": "views/notifications/notifications.html", "controller": "notificationCtrl as vm"},
     {"route": "rules", "template": "views/genericRules/genericAllRule.html", "controller": "rulesCtrl as vm"},    
-    {"route": "logout", "template": "/smartfarming/login/view/logout.html"},  
+    {"route": "logout", "template": "../../../login/view/logout.html"},  
   ]
 };
