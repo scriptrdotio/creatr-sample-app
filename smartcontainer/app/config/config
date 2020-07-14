@@ -1,7 +1,8 @@
 var expiry = 60;
 
 
-var dmpDeviceBroker = "myDmpBroker";
+var applicationGroup = "application";
+var deviceGroup = "device";
 
 var defaultApp = "smartcontainer";
 

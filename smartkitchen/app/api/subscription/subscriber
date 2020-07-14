@@ -22,7 +22,7 @@ var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 var thisdevice  			=  request.user;
 var transformationScript	= thisdevice.transformationScript;
 
-log.info("thisdevice: "+thisdevice+" transformationScript: "+transformationScript);
+log.info("thisdevice: "+thisdevice.id+" transformationScript: "+transformationScript);
 
 var deviceMapper 			= require(transformationScript);
 data 						= deviceMapper.mapIt(inputData); 
@@ -43,6 +43,8 @@ if(isIdInAcl(request.user.id, "group:"+config.applicationGroup)) { //If applicat
     deviceId = request.user.id;
 }
 
+
+log.info("deviceId: "+deviceId);
 
 log.info("[app/api/subscription/subscriber] transform the payload into \n" + JSON.stringify(data));
 
