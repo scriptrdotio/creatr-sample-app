@@ -18,7 +18,7 @@ var saveApplicationGroup = groups.create("application");
 if(saveApplicationGroup.metadata.status == "failure" && saveApplicationGroup.metadata.errorCode != "DUPLICATE_GROUP_NAME"){
     responseObject.failure.push("Failure to create a group \"application\", which is used to identify authenticated applications sending on behalf of devices data to scriptr");
 } else {
-     responseObject.success.push("Group \"application\", which is used to identify authenticated applications sending on behalf of devices data to scriptr is available. "+ saveApplicationGroup.metadata.errorDetail);
+     responseObject.success.push("Group \"application\", which is used to identify authenticated applications sending on behalf of devices data to scriptr is available.");
 }
 
 
@@ -26,7 +26,7 @@ var saveDeviceGroup = groups.create("device");
 if(saveDeviceGroup.metadata.status == "failure" && saveDeviceGroup.metadata.errorCode != "DUPLICATE_GROUP_NAME"){
     responseObject.failure.push("Failure to create a group \"device\"sending data directly to scriptr is available. "+saveDeviceGroup.metadata.errorDetail);
 } else {
-     responseObject.success.push("Group \"device\" which allows to identify an authenticated device is sending data directly to scriptr is available. "+ saveDeviceGroup.metadata.errorDetail);
+     responseObject.success.push("Group \"device\" which allows to identify an authenticated device is sending data directly to scriptr is available.");
 }
 
 

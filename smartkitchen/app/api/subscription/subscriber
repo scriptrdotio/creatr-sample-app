@@ -51,7 +51,7 @@ if(!_.isEmpty(data)) {
         var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
         log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
         log.info("Data to up: "+JSON.stringify(config.deviceDataTopUp))
-        if(deviceDefinition == null) {
+        if(deviceDefinition == null || (deviceDefinition.type != deviceManager.type)) {
             var deviceDefinition = {};
             
             _.extend(config.deviceDataTopUp, utils.randomGeo({"lat": config.deviceDataTopUp.lat, "lng": config.deviceDataTopUp.long}, 2000));
