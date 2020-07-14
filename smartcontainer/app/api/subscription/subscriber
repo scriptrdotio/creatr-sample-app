@@ -22,7 +22,7 @@ var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 var thisdevice  			=  request.user;
 var transformationScript	= thisdevice.transformationScript;
 
-log.info("thisdevice: "+thisdevice+" transformationScript: "+transformationScript);
+log.info("thisdevice: "+thisdevice.id+" transformationScript: "+transformationScript);
 
 var deviceMapper 			= require(transformationScript);
 data 						= deviceMapper.mapIt(inputData); 
@@ -30,6 +30,8 @@ data 						= deviceMapper.mapIt(inputData);
 data = _.omit(data, function(value, key, object) {
      return _.isUndefined(value);
 });
+
+log.info("Transformed data: "+JSON.stringify(data));
 
 //Check if application sending data or device
 if(isIdInAcl(request.user.id, "group:"+config.applicationGroup)) { //If application
@@ -39,10 +41,13 @@ if(isIdInAcl(request.user.id, "group:"+config.applicationGroup)) { //If applicat
         log.info("[app/api/subscription/subscriber] Unable to identify device. Neither id in payload nor a valid device token.\n" + JSON.stringify(data));
         return;
 	}
-} else if (isIdInAcl(request.user.id, "group:"+config.deviceGroup)) {
+} else if(isIdInAcl(request.user.id, "group:"+config.deviceGroup)) {
     deviceId = request.user.id;
+    data.id = deviceId; //We have to map the id field to the actual deviceId
 }
 
+
+log.info("deviceId: "+deviceId);
 
 log.info("[app/api/subscription/subscriber] transform the payload into \n" + JSON.stringify(data));
 
