@@ -33,17 +33,17 @@ if(saveDeviceGroup.metadata.status == "failure" && saveDeviceGroup.metadata.erro
 if(deviceId && isPushPull && isPushPull == "push") {
     var updateDeviceGroups = devices.save({"id": deviceId, "groups":["device"]});
     if(updateDeviceGroups.metadata.status == "failure" ) {
-        responseObject.failure.push("Failure to add device "+ deviceId + " to goup \"device\"");
+        responseObject.failure.push("Failure to add device "+ deviceId + " to group \"device\"");
     } else {
-        responseObject.success.push("Success adding device "+ deviceId + " to goup \"device\"");
+        responseObject.success.push("Success adding device "+ deviceId + " to group \"device\"");
     }
 } else if(deviceId && isPushPull && isPushPull == "pull"){
     //"groups": {"append":["device"], "delete":["application"]}
     var updateDeviceGroups = devices.save({"id": deviceId, "groups": ["application"]});
      if(updateDeviceGroups.metadata.status == "failure" ) {
-        responseObject.failure.push("Failure to add device "+ deviceId + " to goup \"application\"");
+        responseObject.failure.push("Failure to add device "+ deviceId + " to group \"application\"");
     } else {
-        responseObject.success.push("Success adding device "+ deviceId + " to goup \"application\"");
+        responseObject.success.push("Success adding device "+ deviceId + " to group \"application\"");
     }
 }
 
