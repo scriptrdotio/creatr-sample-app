@@ -1,15 +1,16 @@
-# Device Agnostic App
-The device agnostic app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live and historical data as you like.
+# Creatr Sample App
+The creatr sample app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live and historical data as you like.
 
 # Features
-The device agnostic app can be used to serve different industries. So far, you can use the application in the context of a:
+The creatr sample app can be used to serve different industries. So far, you can use the application in the context of a:
 - Smart kitchen,
 - Live Stock fitbit,
 - Smart Container Cold chain.
+- Smart Farming
 
 # Device Connection
 Devices have multiple options to connect to the application:
-- Through a broker, ex: DMP, Gateway...
+- Through a application/broker, ex: DMP, Gateway...
 - Directly over any of the supported protocols: MQTT, WS, AMQP & HTTPS
 
 
@@ -19,10 +20,6 @@ The devices are identified:
 - Either by the id passed in payload.
 - or by the token passed to authenticate the request.
 
-The "app/install/auto.install.scriptr" script onload the application with 2 devices:
-
-- myDmpBroker: This device is to be used by dmp or gateway that communicate with your scriptr account on behalf of multiple devices.
-- myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as id in the payload message or using myDevice token to authenticate the messages sent by your device.
 
 The id prevails over the token if both are present in the request sent by device. This might happen in case the user has multiple devices, and wants to authenticate their scriptr requests using the same device authentication key. In such scenario, the device would send his id in every payload and is identified in scriptr by that id.
 
@@ -86,27 +83,28 @@ The data communicated to scriptr.io account (the device payload) will be normali
          "timestamp": "2019-02-12T18:07:05.605854Z"
       }
    ```
-The app/config/<device-type>/dataTransformation scripts contain a visual mapper which maps the payload properties to output the expected data model format expected by the application.
+The creatr/dataTransformation/<device-name>_mapper scripts contain a visual mapper script or scriptr script which maps the payload properties to output the expected data model format expected by the application.
+
+Each device has the mapper script it needs in its device definition.
    
 # How to view the application
 The installation API "app/install/auto.install.scriptr" needs to be executed once.
 
-Preliminary to that you need to activate your bridge free trial and your message queuing free trial options 
 
-If you registered with scriptr.io using a promocode, this script should have already been executed with the device type defined in the promocode.
+If you have installed this application through the quick start guide, this script should have already been executed with the device type defined in the promocode.
 
 The Installation API "app/install/auto.install.scriptr" to install the app dependencies:
 - The channels needed by the application.
 - A default subdomain for the account, if not available.
 - Default credentials (demo/demo) to use for login.
-- External End points and bridges when needed.
+- Group your device need to belong to
      
-To visualize your device data in real-time, open the script "<app-theme>/view/html/login.html" and click View, then login with the demo/demo credentials. You will land on a map with a cluster view of the device whenever it starts pushing data.
+To visualize your device data in real-time, open the script "<app-theme>/login/view/login.html" and click View, then login with the demo/demo credentials. You will land on a map with a cluster view of the device whenever it starts pushing data.
 <app-theme> can be one of:
 - smartkitchen
 - livestockfitbit
 - smartcontainer
-- assettracking
+- smartfarming
 
 Zooming into the map and clicking on a marker will display an info window with the latest data the device has published. You can click on edit dashboard to view a detailed dashboard of a specific device.
 
@@ -116,9 +114,7 @@ As your device starts pushing data the dashboard and the map will reflect the ne
 
 # Dependencies
 - Underscore module (if you registered with scriptr.io using a promotion code, this module should have already been installed).
-- Hogan module (if you registered with scriptr.io using a promotion code, this module should have already been installed).
-
-- Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
+- Scriptr UI Library Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which is deployed on amazon s3. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace <app-theme>/app/view/html/index.html with index.unpackage.html and checkout the master branch revision "3d16e05a972efc81bc937f2bb439154c703b3ef5" of [UIComponents](https://github.com/scriptrdotio/UIComponents). 
 
 # About the code
 This section gives you an overview of the structure of the application and describes the responsibilities of the different scripts and files that compose it.
@@ -190,7 +186,7 @@ Based on your selected entry point the below pages will be parsed with the appro
 The field entry for each column definition refers to the data stored to each device event. 
 
 ### /view/javascript
-The device-agnostic-app application leverages Angular.js and therefore adopts the corresponding MVC implementation. This folder contains the definition of the application's controllers.
+The creatr-sample-app application leverages Angular.js and therefore adopts the corresponding MVC implementation. This folder contains the definition of the application's controllers.
 
 - view/javascript/module.js: implements the routing logic of the menu
 - view/javascript/controller.js: the main controller of the application
