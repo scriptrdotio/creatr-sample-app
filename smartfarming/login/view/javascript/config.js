@@ -1,5 +1,5 @@
 var config = {
-   redirect: "/smartfarming/app/view/html/index.unpackaged.html",
+   redirect: "/smartfarming/app/view/html/index.html",
    loginPage: "/smartfarming/login/view/login.html"
 }
 

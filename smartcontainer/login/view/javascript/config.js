@@ -1,5 +1,5 @@
 var config = {
-   redirect: "/smartcontainer/app/view/html/index.unpackaged.html",
+   redirect: "/smartcontainer/app/view/html/index.html",
    loginPage: "/smartcontainer/login/view/login.html"
 }
 

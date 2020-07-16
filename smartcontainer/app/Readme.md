@@ -120,6 +120,9 @@ As your device starts pushing data the dashboard and the map will reflect the ne
 
 - Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
 
+The device agnostic application uses a packaged version of the UI Components library. If you would like to modify this library and use it in this application, checkout the master branch (752197e1bbfcab63fac6dc631a85335449c2d944) of this library and switch your index.unpackaged.html with your index.html.
+To package again your changes, you need to commit them to a fork of the UI Components library under your own github account. Checkout the newly created repo on a local environment, run the following Gruntfile.js on the root directory of the UIComponents to build a package (you might need to edit your Gruntfile to include the new widget modules you are using).
+
 # About the code
 This section gives you an overview of the structure of the application and describes the responsibilities of the different scripts and files that compose it.
 

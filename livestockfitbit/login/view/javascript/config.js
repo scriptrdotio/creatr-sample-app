@@ -1,5 +1,5 @@
 var config = {
-   redirect: "/livestockfitbit/app/view/html/index.unpackaged.html",
+   redirect: "/livestockfitbit/app/view/html/index.html",
    loginPage: "/livestockfitbit/login/view/login.html"
 }
 

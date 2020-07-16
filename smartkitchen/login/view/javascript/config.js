@@ -1,5 +1,5 @@
 var config = {
-   redirect: "/smartkitchen/app/view/html/index.unpackaged.html",
+   redirect: "/smartkitchen/app/view/html/index.html",
    loginPage: "/smartkitchen/login/view/login.html"
 }
 
