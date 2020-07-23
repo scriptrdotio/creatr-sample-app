@@ -30,11 +30,11 @@ function saveNotificationSettings(emails) {
 notification_key        } else {
             log.info("[app/entities/notificationmanager] update notifications settings " + JSON.stringify({"key": notification_key, "emails": emails}))
         }
-        document.save({"key": notification_key, "emails": emails})
+        return document.save({"key": notification_key, "emails": emails})
            
    } else{
         log.info("[app/entities/notificationmanager] create notifications settings " + JSON.stringify({"key": notification_key, "emails": emails}))
-        document.save({"key": notification_key, "emails": emails})
+        return document.save({"key": notification_key, "emails": emails})
    }
 }
 

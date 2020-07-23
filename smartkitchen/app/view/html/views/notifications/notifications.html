@@ -10,11 +10,11 @@
                         type="btn-warning btn btn-default btn-sm"
                         is-disabled="false"
                         on-buttonclick="vm.buildParams"    
-                        transport="https"    
+                        action-transport="https"    
                         label="Save"
-                        https-method = "post"
-                        api-params="vm.params"   
-                        api="{{vm.apis.updateSettings}}"
+                        action-http-method = "post"
+                        action-api-params="vm.params"   
+                        action-api="{{vm.apis.updateSettings}}"
                         >
         </scriptr-button>
     </div>

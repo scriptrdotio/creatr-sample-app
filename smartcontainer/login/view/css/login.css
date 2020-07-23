@@ -31,6 +31,10 @@ body {
 
 .btn-primary {background-color: #ff8c00;border-color: #ff8c00;}
 .btn-primary:hover {background-color: #ff8c00; border-color: #d87702;}
+.btn-primary.focus, .btn-primary:focus {
+    background-color: #ff8c00;
+    border-color: #d87702;
+}
 
 /* Additional CSS for styling */
 html, body, .wrap {
