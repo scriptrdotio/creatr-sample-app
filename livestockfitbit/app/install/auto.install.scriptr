@@ -8,8 +8,10 @@ var groups = require("group");
 var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
 var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 
-deviceId = inputData["deviceId"];
-isPushPull = inputData["isPushPull"];
+var deviceId = inputData["deviceId"];
+var isPushPull = inputData["isPushPull"];
+var dataChannel = inputData["channel"]
+var usecase = inputData["usecase"];
 
 
 var saveApplicationGroup = groups.create("application");
@@ -114,5 +116,16 @@ usersList.forEach(function(params) {
        responseObject.success.push("Create admin/admin user to login to sample application.");
     }
 });
+
+
+
+var pubsub = require("pubsub");
+var topic = pubsub.getInstance(dataChannel);
+var response = topic.subscribe(usecase+"/app/api/subscription/subscriber", "script");
+if(response.metadata.status == "failure") {
+     responseObject.failure.push("Failed to subscribe the script " + usecase +"/app/api/subscription/subscriber to the channel " + dataChannel + ".");
+} else {
+    responseObject.success.push("The script " + usecase +"/app/api/subscription/subscriber was successfully subscribed to ingest data from the channel " + dataChannel + ".");
+}
 
 return responseObject;
