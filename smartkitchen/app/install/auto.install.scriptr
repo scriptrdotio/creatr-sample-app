@@ -122,8 +122,8 @@ usersList.forEach(function(params) {
 var pubsub = require("pubsub");
 var topic = pubsub.getInstance(dataChannel);
 var response = topic.subscribe(usecase+"/app/api/subscription/subscriber", "script");
-if(response.metadata.status == "failure") {
-     responseObject.failure.push("Failed to subscribe the script " + usecase +"/app/api/subscription/subscriber to the channel " + dataChannel + ".");
+if(response.metadata.status == "failure" && response.metadata.errorCode != "CALLBACK_SUBSCRIBED") {
+     responseObject.failure.push("Failed to subscribe the script " + usecase +"/app/api/subscription/subscriber to the channel " + dataChannel + "." + response.metadata.errorDetail);
 } else {
     responseObject.success.push("The script " + usecase +"/app/api/subscription/subscriber was successfully subscribed to ingest data from the channel " + dataChannel + ".");
 }
