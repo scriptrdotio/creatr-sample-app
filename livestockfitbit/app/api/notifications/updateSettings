@@ -22,5 +22,5 @@ var response = notificationManager.saveNotificationSettings(query.emails)
 if(response.metadata.status == "failure") {
    return response;
 } else {
-   return {"successMessage": "Emails updates successfully."};
+   return {"successMessage": "Notification emails update is successful."};
 }
