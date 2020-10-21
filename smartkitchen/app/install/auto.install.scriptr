@@ -9,9 +9,9 @@ var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : 
 var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
 
 var deviceId = inputData["deviceId"];
-var isPushPull = inputData["isPushPull"];
-var dataChannel = inputData["channel"]
-var usecase = inputData["usecase"];
+var isPushPull = inputData["isPushPull"]?inputData["isPushPull"]:"push";
+var dataChannel = inputData["channel"]?inputData["channel"]:"Creatr";
+var usecase = inputData["usecase"]?inputData["usecase"]:"smartkitchen";
 
 
 var saveApplicationGroup = groups.create("application");
